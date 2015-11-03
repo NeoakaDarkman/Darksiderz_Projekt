@@ -8,14 +8,33 @@ task main ()
 
 	while (1==1)
 	{
-		NumOut(0,0,LCD_LINE1, Sensor(IN_1));
-		NumOut(0,10,LCD_LINE2, Sensor(IN_2));
-		NumOut(0,20,LCD_LINE3, Sensor(IN_3));
-		NumOut(0,30,LCD_LINE4, SensorUS(IN_4));
-
-		if(SensorUS(IN_4)<10)
+		NumOut(10,10,LCD_LINE1, Sensor(IN_1));
+		Wait(5000);
+		NumOut(10,20,LCD_LINE2, Sensor(IN_2));
+    Wait(5000);
+		NumOut(10,30,LCD_LINE3, Sensor(IN_3));
+		Wait(5000);
+		NumOut(10,40,LCD_LINE4, SensorUS(IN_4));
+		Wait(5000);
+    if(Sensor(IN_2)<100)
+    {
+     OnFwd(OUT_B, 90);
+    }
+    else
+    {
+     OnFwd(OUT_B, 100);
+    }
+    if(Sensor(IN_3)<100)
+    {
+     OnFwd(OUT_C, 90);
+    }
+    else
+    {
+     OnFwd(OUT_C,100);
+    }
+		if(SensorUS(IN_4)<30)
 		{
-			OnFwd(OUT_BC, 30)
+			OnFwd(OUT_BC, 30);
 		}
 	}
 }
