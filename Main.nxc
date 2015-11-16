@@ -1,40 +1,46 @@
 task main ()
 {
-	SetSensorLight(IN_1);
+	SetSensorLight(IN_1);     //10-25 fur schwarz, 30 - 45 fur weis
 	SetSensorLight(IN_2);
 	SetSensorLight(IN_3);
-	SetSensorLowspeed(IN_4);
-	OnFwd(OUT_BC, 100);
+ 	SetSensorLowspeed(IN_4);  //6 zm - stop
+ 	int SLL;
+ 	int SLR;
+ 	SLL = Sensor(IN_1) - Sensor(IN_2);
+ 	SLR = Sensor(IN_3) - Sensor(IN_2);
+	OnFwd(OUT_BC, 60);
 
 	while (1==1)
 	{
-		NumOut(10,10,LCD_LINE1, Sensor(IN_1));
-		Wait(5000);
-		NumOut(10,20,LCD_LINE2, Sensor(IN_2));
-    Wait(5000);
-		NumOut(10,30,LCD_LINE3, Sensor(IN_3));
-		Wait(5000);
-		NumOut(10,40,LCD_LINE4, SensorUS(IN_4));
-		Wait(5000);
-    if(Sensor(IN_2)<100)
+    if(SLL<8)
     {
-     OnFwd(OUT_B, 90);
+    until (SLL>8)
+    {
+     OnRev(OUT_B, 45);
+     }
     }
     else
     {
-     OnFwd(OUT_B, 100);
+     OnFwd(OUT_B, 60);
     }
-    if(Sensor(IN_3)<100)
+    if(SLR<8)
     {
-     OnFwd(OUT_C, 90);
+    until (SLR>8)
+    {
+     OnRev(OUT_C, 45);
+     }
     }
     else
     {
-     OnFwd(OUT_C,100);
+     OnFwd(OUT_C,60);
     }
-		if(SensorUS(IN_4)<30)
+		if(SensorUS(IN_4)<15)
 		{
 			OnFwd(OUT_BC, 30);
 		}
+		else
+		{
+   OnFwd(OUT_BC, 60);
+   }
 	}
 }
