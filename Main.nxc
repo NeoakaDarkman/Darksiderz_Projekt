@@ -1,13 +1,20 @@
 task main ()
 {
+ /*Wenn ihr Code andert, bitte Kommentare schreiben, um leichte zu Navigierien.
+ Fur Mainversion wird dann alle Kommentare geloscht. (Nur ein Paar wichtige bleiben dabei.
+ Vielen Dank! */
 	SetSensorLight(IN_1);     //10-25 fur schwarz, 30 - 45 fur weis
 	SetSensorLight(IN_2);
 	SetSensorLight(IN_3);
+	//Von 1 - 3: links, Mitte, rechts
  	SetSensorLowspeed(IN_4);  //6 zm - stop
  	int SLL;
  	int SLR;
  	SLL = Sensor(IN_1) - Sensor(IN_2);
  	SLR = Sensor(IN_3) - Sensor(IN_2);
+ 	/* Mit dieser Variablen konnen wir ein Paar Probleme schon umgehen.
+ 	Zum Beispiel Probleme mit Sonnenlicht, bin aber nicht sicher.
+ 	Markiere als Testbereich Nummer 1 fur nachsten Termin*/
 	OnFwd(OUT_BC, 60);
 
 	while (1==1)
