@@ -1,82 +1,88 @@
-#define LS SLL = Sensor(IN_1) - Sensor(IN_2); \
-           SLR = Sensor(IN_3) - Sensor(IN_2);
+#define schwarz < 30;
+#define weiss > 30;   //Ist das überhaupt erlaubt?
+
 task main ()
 {
-
+	//B - linker Motor; C - rechter Motor
 	SetSensorLight(IN_1);     //10-20 fur schwarz, 30 - 40 Grenze 45 - 60 fur weis
 	SetSensorLight(IN_2);
 	SetSensorLight(IN_3);
 		//Von 1 - 3: links, Mitte, rechts
- 	SetSensorLowspeed(IN_4);  //6 zm - stop
+ 	SetSensorLowspeed(IN_4);  //4 zm - stop
 
-	int SLL;
- 	int SLR;
- 	LS;
-
-	OnFwd(OUT_BC, 30);
+	OnFwd(OUT_BC, 70);
 
 	while (1==1)
 	{
-		LS;
-		
-		if(Sensor(IN_1)< 30 & Sensor(IN_2)<25)
+		if(Sensor(IN_1) < 30 & Sensor(IN_2) < 30 & Sensor(IN_3) > 30)
 		{
-			LS;
-			until (Sensor(IN_1)>35 & Sensor(IN_2)<25)
+			until (Sensor(IN_1) > 30 & Sensor(IN_2) < 26)
 			{
-				OnRev(OUT_B, 15);
+				OnRev(OUT_B, 55);
 			}
 		}
 		else
 		{
-			OnFwd(OUT_B, 30);
+			OnFwd(OUT_B, 70);
 		}
 		
-		if(Sensor(IN_3)< 30 & Sensor(IN_2)<25)
+		if(Sensor(IN_3) < 30 & Sensor(IN_2) < 30)
 		{
-			LS;
-			until (Sensor(IN_3)>35 & Sensor(IN_2)<25)
+			until (Sensor(IN_3) > 30 & Sensor(IN_2) < 26 & Sensor(IN_1) > 30)
 			{
-				OnRev(OUT_C, 15);
+				OnRev(OUT_C, 55);
 			}
 		}
 		else
 		{
-			OnFwd(OUT_C,30);
+			OnFwd(OUT_C,70);
 		}
-		if(Sensor(IN_1)< 30 & Sensor(IN_2)>25 & Sensor(IN_3) > 30)
+		
+		if(Sensor(IN_1) < 30 & Sensor(IN_2) > 30 & Sensor(IN_3) > 30)
 		{
-			LS;
-			until (Sensor(IN_1)>35 & Sensor(IN_2)<25)
+			until (Sensor(IN_1) > 30 & Sensor(IN_2) < 26)
 			{
-				OnRev(OUT_B, 15);
+				OnRev(OUT_B, 55);
 			}
 		}
 		else
 		{
-			OnFwd(OUT_B, 30);
+			OnFwd(OUT_B, 70);
 		}
-
-		if(Sensor(IN_3)< 30 & Sensor(IN_2)>25 & Sensor(IN_1) >30)
+		
+		if(Sensor(IN_3) < 30 & Sensor(IN_2) > 30 & Sensor(IN_1) > 30)
 		{
-			LS;
-			until (Sensor(IN_3)>35 & Sensor(IN_2)<25)
+			until (Sensor(IN_3) > 30 & Sensor(IN_2) < 26)
 			{
-				OnRev(OUT_C, 15);
+				OnRev(OUT_C, 55);
 			}
 		}
 		else
 		{
-			OnFwd(OUT_C,30);
+			OnFwd(OUT_C,70);
 		}
-		if(SensorUS(IN_4)<15)
+		
+		/*	if(Sensor(IN_3) < 24 & Sensor(IN_2) < 24 & Sensor(IN_1) < 24)
 		{
-			LS;
-			OnFwd(OUT_BC, 30);
+			until (Sensor(IN_2) < 24 & (Sensor(IN_1) > 25 | Sensor(IN_3) > 25))
+			{
+				OnRev(OUT_BC, 15);
+			}
 		}
 		else
 		{
-			OnFwd(OUT_BC, 60);
+			OnFwd(OUT_BC,70);
+		}       */
+		
+		if(SensorUS(IN_4) == 4)
+		{
+			Off(OUT_BC);
+			RotateMotor(OUT_A, 100, 100);
+			OnFwd(OUT_BC, 70);
+		}
+		else
+		{
+			OnRev(OUT_BC, 60);
 		}
 	}
 
