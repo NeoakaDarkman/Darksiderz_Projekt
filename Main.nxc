@@ -1,88 +1,84 @@
-#define schwarz < 30;
-#define weiss > 30;   //Ist das überhaupt erlaubt?
+#define farbe 32
 
 task main ()
 {
 	//B - linker Motor; C - rechter Motor
-	SetSensorLight(IN_1);     //10-20 fur schwarz, 30 - 40 Grenze 45 - 60 fur weis
+	SetSensorLight(IN_1);     //%depricated%
 	SetSensorLight(IN_2);
 	SetSensorLight(IN_3);
-		//Von 1 - 3: links, Mitte, rechts
- 	SetSensorLowspeed(IN_4);  //4 zm - stop
+	//Von 1 - 3: links, Mitte, rechts
+ 	SetSensorLowspeed(IN_4);  //4-5 zm - stop
 
-	OnFwd(OUT_BC, 70);
+	OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
 
 	while (1==1)
 	{
-		if(Sensor(IN_1) < 30 & Sensor(IN_2) < 30 & Sensor(IN_3) > 30)
+		if(Sensor(IN_1) < farbe & Sensor(IN_2) < farbe & Sensor(IN_3) > farbe)
 		{
-			until (Sensor(IN_1) > 30 & Sensor(IN_2) < 26)
+			until (Sensor(IN_1) > farbe & Sensor(IN_2) < farbe)
 			{
-				OnRev(OUT_B, 55);
+				OnFwd(OUT_B, 45);
 			}
 		}
 		else
 		{
-			OnFwd(OUT_B, 70);
+			OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
 		}
 		
-		if(Sensor(IN_3) < 30 & Sensor(IN_2) < 30)
+		if(Sensor(IN_3) < farbe & Sensor(IN_2) < farbe & Sensor(IN_1) > farbe)
 		{
-			until (Sensor(IN_3) > 30 & Sensor(IN_2) < 26 & Sensor(IN_1) > 30)
+			until (Sensor(IN_3) > farbe & Sensor(IN_2) < farbe & Sensor(IN_1) > farbe)
 			{
-				OnRev(OUT_C, 55);
+				OnFwd(OUT_C, 45);
 			}
 		}
 		else
 		{
-			OnFwd(OUT_C,70);
+			OnRevReg(OUT_BC,60, OUT_REGMODE_SYNC);
 		}
 		
-		if(Sensor(IN_1) < 30 & Sensor(IN_2) > 30 & Sensor(IN_3) > 30)
+		if(Sensor(IN_1) < farbe & Sensor(IN_2) > farbe & Sensor(IN_3) > farbe)
 		{
-			until (Sensor(IN_1) > 30 & Sensor(IN_2) < 26)
+			until (Sensor(IN_1) > farbe & Sensor(IN_2) < farbe)
 			{
-				OnRev(OUT_B, 55);
+				OnFwd(OUT_B, 45);
 			}
 		}
 		else
 		{
-			OnFwd(OUT_B, 70);
+			OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
 		}
 		
-		if(Sensor(IN_3) < 30 & Sensor(IN_2) > 30 & Sensor(IN_1) > 30)
+		if(Sensor(IN_3) < farbe & Sensor(IN_2) > farbe & Sensor(IN_1) > farbe)
 		{
-			until (Sensor(IN_3) > 30 & Sensor(IN_2) < 26)
+			until (Sensor(IN_3) > farbe & Sensor(IN_2) < farbe)
 			{
-				OnRev(OUT_C, 55);
+				OnFwd(OUT_C, 45);
 			}
 		}
 		else
 		{
-			OnFwd(OUT_C,70);
+			OnRevReg(OUT_BC,60, OUT_REGMODE_SYNC);
 		}
 		
-		/*	if(Sensor(IN_3) < 24 & Sensor(IN_2) < 24 & Sensor(IN_1) < 24)
+		if(Sensor(IN_3) < farbe & Sensor(IN_2) < farbe & Sensor(IN_1) < farbe)
 		{
-			until (Sensor(IN_2) < 24 & (Sensor(IN_1) > 25 | Sensor(IN_3) > 25))
-			{
-				OnRev(OUT_BC, 15);
-			}
+			OnRevReg(OUT_BC, 50, OUT_REGMODE_SYNC);
 		}
 		else
 		{
-			OnFwd(OUT_BC,70);
-		}       */
-		
+			OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
+		}
+
 		if(SensorUS(IN_4) == 4)
 		{
 			Off(OUT_BC);
 			RotateMotor(OUT_A, 100, 100);
-			OnFwd(OUT_BC, 70);
+			OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
 		}
 		else
 		{
-			OnRev(OUT_BC, 60);
+			OnFwd(OUT_BC, 60);
 		}
 	}
 
