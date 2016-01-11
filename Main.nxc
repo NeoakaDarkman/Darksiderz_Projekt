@@ -1,4 +1,4 @@
-#define farbe 32
+#define farbe 25
 
 task main ()
 {
@@ -19,28 +19,28 @@ task main ()
 		{
 			until (Sensor(IN_1) > farbe & Sensor(IN_2) < farbe)
 			{
-				OnFwd(OUT_B, 45);
+				OnFwd(OUT_C, 45);
 			}
 		}
 		else if(Sensor(IN_3) < farbe & Sensor(IN_2) < farbe & Sensor(IN_1) > farbe)
 		{
 			until (Sensor(IN_3) > farbe & Sensor(IN_2) < farbe & Sensor(IN_1) > farbe)
 			{
-				OnFwd(OUT_C, 45);
+				OnFwd(OUT_B, 45);
 			}
 		}
 		else if(Sensor(IN_1) < farbe & Sensor(IN_2) > farbe & Sensor(IN_3) > farbe)
 		{
 			until (Sensor(IN_1) > farbe & Sensor(IN_2) < farbe)
 			{
-				OnFwd(OUT_B, 45);
+				OnFwd(OUT_C, 45);
 			}
 		}
 		else if(Sensor(IN_3) < farbe & Sensor(IN_2) > farbe & Sensor(IN_1) > farbe)
 		{
 			until (Sensor(IN_3) > farbe & Sensor(IN_2) < farbe)
 			{
-				OnFwd(OUT_C, 45);
+				OnFwd(OUT_B, 45);
 			}
 		}
 		else if(Sensor(IN_3) < farbe & Sensor(IN_2) < farbe & Sensor(IN_1) < farbe)
@@ -62,15 +62,15 @@ task main ()
   	{
 		if(pass == 1)
 		{
-			RotateMotor(OUT_A, 100, 100);
-		}
+			RotateMotor(OUT_A, 100, -120);
+   		}
 		else
 		{
-			RotateMotor(OUT_A, 100, -100);
+			RotateMotor(OUT_A, 100, 120);
 		}
-		pause 2000;
-		OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
-		wait 3000;
+		Wait(2000);
+		OnFwdReg(OUT_BC, 60, OUT_REGMODE_SYNC);
+  		Wait(3000);
 		if(pass == 1)
 		{
 			id = 3;
