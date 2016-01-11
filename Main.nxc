@@ -8,11 +8,13 @@ task main ()
 	SetSensorLight(IN_3);
                              //Von 1 - 3: links, Mitte, rechts
  	SetSensorLowspeed(IN_4);   //4-5 zm - stop
- 	int pass;
+ 	int pass = 1;
+	int id = 0;
 
-	OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
-	while (1==1)
+	
+	while (id == 0)
 	{
+		OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
 		if(Sensor(IN_1) < farbe & Sensor(IN_2) < farbe & Sensor(IN_3) > farbe)
 		{
 			until (Sensor(IN_1) > farbe & Sensor(IN_2) < farbe)
@@ -50,12 +52,36 @@ task main ()
 			OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
 		}
 
-		if(SensorUS(IN_4) == 4 & pass == 1)
+		if(SensorUS(IN_4) == 4)
 		{
-      Off(OUT_BC);
-			RotateMotor(OUT_A, 100, 100);
-			OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
-			pass++;
+      	  	Off(OUT_BC);
+			id++;
 		}
   }
+  	while(id == 1)
+  	{
+		if(pass == 1)
+		{
+			RotateMotor(OUT_A, 100, 100);
+		}
+		else
+		{
+			RotateMotor(OUT_A, 100, -100);
+		}
+		pause 2000;
+		OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
+		wait 3000;
+		if(pass == 1)
+		{
+			id = 3;
+			pass = 2;
+			id = 0;
+		}
+		else
+		{
+			id = 3;
+			pass = 1;
+			id = 0;
+		}
+  	}
 }
