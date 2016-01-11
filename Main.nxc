@@ -11,17 +11,16 @@ task main ()
  	int pass = 1;
 	int id = 0;
 
-	
 	while (0 == 0)
 	{
-	if(id == 0)
-	{
-		OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
+		if(id == 0)
+		{
+			OnRevReg(OUT_BC, 60, OUT_REGMODE_SYNC);
 		}
 		else
 		{
-		RotateMotorEx(OUT_BC, 100, -1180, 100, true, true);
-		id =0;
+			RotateMotorEx(OUT_BC, 100, -1180, 100, true, true);
+			id =0;
 		}
 		if(Sensor(IN_1) < farbe & Sensor(IN_2) < farbe & Sensor(IN_3) > farbe)
 		{
@@ -64,18 +63,18 @@ task main ()
 		{
       	  	Off(OUT_BC);
       	  	if(pass == 1)
-		{
-			RotateMotor(OUT_A, 100, -120);
+			{
+				RotateMotor(OUT_A, 100, -120);
+			}
+			else
+			{
+				RotateMotor(OUT_A, 100, 120);
+			}
+			Wait(2000);
+			id = 1;
+			OnFwdReg(OUT_BC, 60, OUT_REGMODE_SYNC);
+			pass = 2;
+			Wait(3000);
    		}
-		else
-		{
-			RotateMotor(OUT_A, 100, 120);
-		}
-		Wait(2000);
-		id = 1;
-		OnFwdReg(OUT_BC, 60, OUT_REGMODE_SYNC);
-		pass = 2;
-  		Wait(3000);
-   		}
-  }
-   }
+	}
+}
